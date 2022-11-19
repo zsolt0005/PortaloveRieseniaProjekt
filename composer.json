@@ -1,0 +1,24 @@
+{
+  "name": "zsolt/pr",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "Zsolt\\Pr\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Zsolt",
+      "email": "zsoltdome0005@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "ext-couchbase": "*",
+    "ext-http": "*",
+    "ext-pdo": "*",
+
+    "nette/neon": "^3.3",
+    "latte/latte": "^3.0"
+  }
+}

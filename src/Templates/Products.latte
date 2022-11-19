@@ -1,0 +1,74 @@
+{layout BaseLayout.latte}
+{block content}
+
+{varType Zsolt\Pr\Model\Data\ProductsDefaultData $data}
+
+<div class="row tm-content-row">
+    <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block tm-block-products">
+            <div class="tm-product-table-container">
+                <table class="table table-hover tm-table-small tm-product-table">
+                    <thead>
+                    <tr>
+                        <th scope="col">PRODUCT NAME</th>
+                        <th scope="col">UNITS SOLD</th>
+                        <th scope="col">UNITS IN STOCK</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {foreach $data->products as $product}
+                        <tr>
+                            <td class="tm-product-name">{$product->getName()}</td>
+                            <td>{$product->getUnitsSold()}</td>
+                            <td>{$product->getUnitsInStock()}</td>
+                            <td>
+                                <a href="product-edit?productCode={$product->getCode()}" class="tm-product-delete-link">Edit</a>
+                            </td>
+                            <td>
+                                <form action="products" method="post">
+                                    <input type="hidden" name="delete_product_code" value="{$product->getCode()}">
+                                    <button class="tm-product-delete-link" name="delete_product">
+                                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {/foreach}
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- table container -->
+            <a href="product-add" class="btn btn-primary btn-block text-uppercase mb-3">Add new product</a>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+            <h2 class="tm-block-title">Product Categories</h2>
+            <div class="tm-product-table-container">
+                <table class="table tm-table-small tm-product-table">
+                    <tbody>
+                    {foreach $data->productCategories as $productCategory}
+                        <tr>
+                            <td class="tm-product-name">{$productCategory->getName()}</td>
+                            <td class="text-center">
+                                <form action="products" method="post">
+                                    <input type="hidden" name="delete_category_code" value="{$productCategory->getCode()}">
+                                    <button class="tm-product-delete-link" name="delete_category">
+                                        <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {/foreach}
+                    </tbody>
+                </table>
+            </div>
+            <!-- table container -->
+            <a href="category-add" class="btn btn-primary btn-block text-uppercase mb-3">Add new category</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  php81fpm:
+    build:
+      context: ./
+      dockerfile: Dockerfile-php81
+    container_name: web-app
+    restart: always
+    working_dir: /var/www/
+    volumes:
+      - ../:/var/www
+
+  nginx:
+    image: nginx:1.19-alpine
+    container_name: web-nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:433"
+    volumes:
+      - ../:/var/www
+      - ./nginx:/etc/nginx/conf.d
+
+  database:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'product_admin'
+      MYSQL_ROOT_PASSWORD: 'pwd'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ../database:/var/lib/mysql
